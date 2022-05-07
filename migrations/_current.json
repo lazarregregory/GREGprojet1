@@ -1,0 +1,368 @@
+{
+    "tables": {
+        "activites": {
+            "tableName": "activites",
+            "schema": {
+                "idactivites": {
+                    "autoIncrement": true,
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "field": "idactivites",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "Titre": {
+                    "allowNull": true,
+                    "field": "Titre",
+                    "seqType": "Sequelize.STRING(45)"
+                },
+                "Image": {
+                    "allowNull": true,
+                    "field": "Image",
+                    "seqType": "Sequelize.STRING(45)"
+                },
+                "Description": {
+                    "allowNull": true,
+                    "field": "Description",
+                    "seqType": "Sequelize.TEXT"
+                },
+                "idadmin": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "references": {
+                        "model": "administrateurs",
+                        "key": "idadmin"
+                    },
+                    "field": "idadmin",
+                    "onDelete": "NO ACTION",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": {
+                "6f67b6613ba0f986d8c0e832950031dc06e5bb07": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "idactivites"
+                        },
+                        {
+                            "name": "idadmin"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "name": "PRIMARY",
+                        "indicesType": "UNIQUE",
+                        "type": "UNIQUE"
+                    }
+                },
+                "7001f0388ec13585510918658d7179c702190b36": {
+                    "name": "idadmin",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "idadmin"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "idadmin",
+                        "name": "idadmin"
+                    }
+                }
+            }
+        },
+        "administrateurs": {
+            "tableName": "administrateurs",
+            "schema": {
+                "idadmin": {
+                    "autoIncrement": true,
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "field": "idadmin",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "Nom": {
+                    "allowNull": true,
+                    "field": "Nom",
+                    "seqType": "Sequelize.STRING(45)"
+                },
+                "Prenom": {
+                    "allowNull": true,
+                    "field": "Prenom",
+                    "seqType": "Sequelize.STRING(45)"
+                },
+                "email": {
+                    "allowNull": true,
+                    "field": "email",
+                    "seqType": "Sequelize.STRING(45)"
+                },
+                "mdp": {
+                    "allowNull": true,
+                    "field": "mdp",
+                    "seqType": "Sequelize.STRING(45)"
+                }
+            },
+            "indexes": {
+                "06b81502a83c7bc28d907b6bbc09cc75de4b540b": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "idadmin"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "name": "PRIMARY",
+                        "indicesType": "UNIQUE",
+                        "type": "UNIQUE"
+                    }
+                }
+            }
+        },
+        "categorie": {
+            "tableName": "categorie",
+            "schema": {
+                "idcategorie": {
+                    "autoIncrement": true,
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "field": "idcategorie",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "nomcategorie": {
+                    "allowNull": true,
+                    "field": "nomcategorie",
+                    "seqType": "Sequelize.STRING(45)"
+                }
+            },
+            "indexes": {
+                "f90913d87c30588c74d330380ec2d90937bdf503": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "idcategorie"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "name": "PRIMARY",
+                        "indicesType": "UNIQUE",
+                        "type": "UNIQUE"
+                    }
+                }
+            }
+        },
+        "commentaires": {
+            "tableName": "commentaires",
+            "schema": {
+                "idcom": {
+                    "autoIncrement": true,
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "field": "idcom",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "nom": {
+                    "allowNull": true,
+                    "field": "nom",
+                    "seqType": "Sequelize.STRING(45)"
+                },
+                "prenom": {
+                    "allowNull": true,
+                    "field": "prenom",
+                    "seqType": "Sequelize.STRING(45)"
+                },
+                "commentaire": {
+                    "allowNull": true,
+                    "field": "commentaire",
+                    "seqType": "Sequelize.STRING(45)"
+                },
+                "idLieux": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "references": {
+                        "model": "lieux",
+                        "key": "idLieux"
+                    },
+                    "field": "idLieux",
+                    "unique": "commentaires_idLieux_idactivites_unique",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "idactivites": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "references": {
+                        "model": "activites",
+                        "key": "idactivites"
+                    },
+                    "field": "idactivites",
+                    "unique": "commentaires_idLieux_idactivites_unique",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "CreateDate": {
+                    "allowNull": false,
+                    "field": "CreateDate",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": {
+                "27bbe66855fa0609397550ee93580ddb0afd4d8e": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "idcom"
+                        },
+                        {
+                            "name": "idLieux"
+                        },
+                        {
+                            "name": "idactivites"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "name": "PRIMARY",
+                        "indicesType": "UNIQUE",
+                        "type": "UNIQUE"
+                    }
+                },
+                "6a0713faad22b9731add67e2e0d2f0fd1a564466": {
+                    "name": "idLieux",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "idLieux"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "idLieux",
+                        "name": "idLieux"
+                    }
+                },
+                "bc7cee4e430d0a3d041eeeb43a25b7ec3705845b": {
+                    "name": "idactivites",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "idactivites"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "idactivites",
+                        "name": "idactivites"
+                    }
+                }
+            }
+        },
+        "lieux": {
+            "tableName": "lieux",
+            "schema": {
+                "idLieux": {
+                    "autoIncrement": true,
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "field": "idLieux",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "Titre": {
+                    "allowNull": true,
+                    "field": "Titre",
+                    "seqType": "Sequelize.STRING(45)"
+                },
+                "Image": {
+                    "allowNull": true,
+                    "field": "Image",
+                    "seqType": "Sequelize.STRING(45)"
+                },
+                "Description": {
+                    "allowNull": true,
+                    "field": "Description",
+                    "seqType": "Sequelize.TEXT"
+                },
+                "idadmin": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "references": {
+                        "model": "administrateurs",
+                        "key": "idadmin"
+                    },
+                    "field": "idadmin",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "idcategorie": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "references": {
+                        "model": "categorie",
+                        "key": "idcategorie"
+                    },
+                    "field": "idcategorie",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": {
+                "4dfc04c494e7e8c290e235eaf757ee9d1f5d9b39": {
+                    "name": "PRIMARY",
+                    "unique": true,
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "idLieux"
+                        },
+                        {
+                            "name": "idadmin"
+                        },
+                        {
+                            "name": "idcategorie"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "PRIMARY",
+                        "name": "PRIMARY",
+                        "indicesType": "UNIQUE",
+                        "type": "UNIQUE"
+                    }
+                },
+                "12697661f71ef31fae99ffa15584f36f36d209e4": {
+                    "name": "idcategorie",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "idcategorie"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "idcategorie",
+                        "name": "idcategorie"
+                    }
+                },
+                "7001f0388ec13585510918658d7179c702190b36": {
+                    "name": "idadmin",
+                    "using": "BTREE",
+                    "fields": [
+                        {
+                            "name": "idadmin"
+                        }
+                    ],
+                    "options": {
+                        "indexName": "idadmin",
+                        "name": "idadmin"
+                    }
+                }
+            }
+        }
+    },
+    "revision": 1
+}
